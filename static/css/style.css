@@ -1,0 +1,53 @@
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* ÜST BAR */
+.topbar {
+    background: #000;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    padding: 6px 0;
+}
+
+/* NAVBAR */
+.custom-navbar {
+    padding: 16px 0;
+}
+
+/* LOGO */
+.brand-logo {
+    font-weight: 700;
+    font-size: 20px;
+    color: #000;
+    text-decoration: none;
+}
+
+/* KATEGORİ */
+.category-nav .nav-link {
+    color: #000;
+    font-size: 15px;
+}
+
+/* ARAMA */
+.search-input {
+    border: none;
+    border-bottom: 1px solid #000;
+    outline: none;
+    font-size: 14px;
+}
+
+/* LINKLER */
+.nav-text-link,
+.cart-link {
+    color: #000;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* SEPET SAYI */
+.cart-badge {
+    font-size: 12px;
+    margin-left: 4px;
+}
