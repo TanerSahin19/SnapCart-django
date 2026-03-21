@@ -16,16 +16,30 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import home
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', home, name='home'),
+    # Admin panel yolu
     path('admin/', admin.site.urls),
-    
+
+    # Ana sayfa (BOŞ PATH)
+    # "" demek: site açıldığında direkt buraya gelir
+    # Bu path products app içindeki urls.py'ye yönlendirir
+    path('', include('products.urls')),
+
+    # Sepet sistemi
     path('cart/', include('cart.urls')),
+
+    # Sipariş sistemi
     path('orders/', include('orders.urls')),
-    path('products/', include('products.urls')),
+
+
+    # Kullanıcı sistemi (login/register)
     path('accounts/', include('accounts.urls')),
-    
 ]
-    
+
+# MEDIA dosyaları (resimler) için
+# Development ortamında yüklediğin resimlerin görünmesini sağlar
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
