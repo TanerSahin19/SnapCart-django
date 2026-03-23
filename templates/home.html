@@ -1,78 +1,54 @@
 {% extends 'base.html' %}
-{# Bu sayfa base.html'i kullanır #}
 
 {% block title %}SnapCart - Ana Sayfa{% endblock %}
-{# Tarayıcı sekmesinde görünen başlık #}
 
 {% block content %}
-{# Ana içerik alanı burada başlıyor #}
-
 <div class="py-4">
-
-    {# Sayfa başlığı #}
     <h1 class="mb-3">SnapCart</h1>
+    <p class="mb-4">Admin panelden eklenen ürünler aşağıda listeleniyor.</p>
 
-    {# Sayfa açıklaması #}
-    <p class="mb-4">
-        Admin panelden eklenen ürünler aşağıda listeleniyor.
-    </p>
-
-    {# Ürünlerin listeleneceği ana satır #}
     <div class="row g-4">
-
-        {# views.py'den gelen products listesi üzerinde dönüyoruz #}
         {% for product in products %}
-
-            {# Her ürün için bir kart oluşturuyoruz #}
             <div class="col-md-4 col-lg-3">
                 <div class="card h-100">
-
-                    {# Ürünün resmi varsa göster #}
                     {% if product.image %}
-                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                        <a href="{% url 'products:product_detail' product.slug %}">
+                            <img
+                                src="{{ product.image.url }}"
+                                alt="{{ product.name }}"
+                                class="card-img-top"
+                            >
+                        </a>
                     {% else %}
-                        {# Resim yoksa bunu göster #}
-                        <div class="p-4 text-center border-bottom">
-                            Görsel yok
-                        </div>
+                        <div class="p-4 text-center border-bottom">Görsel yok</div>
                     {% endif %}
 
                     <div class="card-body">
-
-                        {# Ürün adı #}
                         <h5 class="card-title">
-                            {{ product.name }}
+                            <a href="{% url 'products:product_detail' product.slug %}" class="text-dark text-decoration-none">
+                                {{ product.name }}
+                            </a>
                         </h5>
 
-                        {# Ürünün kategorisi #}
                         <p class="card-text mb-1">
                             <strong>Kategori:</strong> {{ product.category.name }}
                         </p>
 
-                        {# Ürün fiyatı #}
                         <p class="card-text mb-1">
                             <strong>Fiyat:</strong> {{ product.price }} TL
                         </p>
 
-                        {# Ürün stok bilgisi #}
                         <p class="card-text">
                             <strong>Stok:</strong> {{ product.stock }}
                         </p>
-
                     </div>
                 </div>
             </div>
-
         {% empty %}
-            {# Eğer hiç ürün yoksa kullanıcıya mesaj göster #}
             <div class="col-12">
-                <div class="alert alert-warning">
-                    Henüz ürün eklenmemiş.
-                </div>
+                <div class="alert alert-warning">Henüz ürün eklenmemiş.</div>
             </div>
         {% endfor %}
-
     </div>
 </div>
-
 {% endblock %}

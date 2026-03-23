@@ -1,15 +1,23 @@
-from django.shortcuts import render
-from .models import Product
+from django.shortcuts import render, get_object_or_404
+from .models import Product, Category
 
 
 def home(request):
-    # Sadece satışta olan ürünleri çek
-    # En yeni eklenen ürünler üstte gelsin
     products = Product.objects.filter(available=True)
+    return render(request, 'home.html', {'products': products})
 
-    # Home template'ine products verisini gönder
+
+def category_products(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    products = Product.objects.filter(category=category, available=True)
+
     context = {
+        'category': category,
         'products': products,
     }
+    return render(request, 'products/category.html', context)
 
-    return render(request, 'home.html', context)
+
+def product_detail(request, slug):
+    product = get_object_or_404(Product, slug=slug, available=True)
+    return render(request, 'products/detail.html', {'product': product})

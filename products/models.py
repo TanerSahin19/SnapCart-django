@@ -8,27 +8,26 @@ class Category(models.Model):
     # Otomatik üretilecek slug alanı
     slug = models.SlugField(max_length=140, unique=True, blank=True)
 
+    # Kategori görseli
+    image = models.ImageField(upload_to='categories/', blank=True, null=True)
+
     # Oluşturulma tarihi
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        # Kategorileri alfabetik sırala
         ordering = ['name']
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
 
     def __str__(self):
-        # Admin panelde kategori adını göster
         return self.name
 
     def save(self, *args, **kwargs):
-        # Slug boşsa name alanından otomatik oluştur
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        # Kategori detay/list sayfası için URL döndür
         return reverse('products:category_products', args=[self.slug])
 
 
