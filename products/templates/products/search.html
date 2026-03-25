@@ -1,0 +1,17 @@
+<h2>Arama Sonuçları</h2>
+
+{% if query %}
+    <p>"{{ query }}" için sonuçlar:</p>
+{% endif %}
+
+{% if results %}
+    {% for product in results %}
+        <div>
+            <a href="{% url 'products:product_detail' product.slug %}">
+                {{ product.name }}
+            </a>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>Sonuç bulunamadı.</p>
+{% endif %}

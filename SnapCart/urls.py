@@ -19,6 +19,8 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from orders import views
+
 urlpatterns = [
     # Admin panel yolu
     path('admin/', admin.site.urls),
@@ -37,6 +39,7 @@ urlpatterns = [
 
     # Kullanıcı sistemi (login/register)
     path('accounts/', include('accounts.urls')),
+    
 ]
 
 # MEDIA dosyaları (resimler) için
