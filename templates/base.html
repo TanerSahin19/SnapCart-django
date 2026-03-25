@@ -29,6 +29,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   </head>
+
   <body>
     <!-- ÜST DUYURU BAR -->
     <div class="topbar text-center">
@@ -59,77 +60,75 @@
 
           <!-- MENÜ -->
           <div class="collapse navbar-collapse" id="mainNavbar">
-            <!-- ORTA KATEGORİLER -->
-            <!--
-              Dinamik kategori alanı burada olacak.
-              Navbar'da kategori verisi her zaman context processor'dan gelir.
-              Yani nav_categories değişkeni products/context_processors.py dosyasından gelir.
-            -->
+            <!-- KATEGORİLER -->
             <div class="navbar-nav mx-auto category-links">
               {% for category in nav_categories %}
-              <a
-                class="me-3"
-                href="{% url 'products:category_products' category.slug %}"
-              >
-                {{ category.name }}
-              </a>
+                <a
+                  class="me-3"
+                  href="{% url 'products:category_products' category.slug %}"
+                >
+                  {{ category.name }}
+                </a>
               {% endfor %}
             </div>
 
             <!-- SAĞ ALAN -->
             <div class="navbar-right d-flex align-items-center gap-3">
-              <!-- ARAMA -->
+              <!-- SEARCH -->
               <form
-    class="search-form d-flex align-items-center"
-    method="GET"
-    action="{% url 'products:search' %}"
-  >
-    <i class="bi bi-search search-icon"></i>
+                class="search-form d-flex align-items-center"
+                method="GET"
+                action="{% url 'products:search' %}"
+              >
+                <i class="bi bi-search search-icon"></i>
 
-    <input
-      type="search"
-      name="q"
-      class="form-control search-input"
-      placeholder="Ürün ara..."
-      aria-label="Ürün ara"
-      value="{{ request.GET.q }}"
-    />
+                <input
+                  type="search"
+                  name="q"
+                  class="form-control search-input"
+                  placeholder="Ürün ara..."
+                  aria-label="Ürün ara"
+                  value="{{ request.GET.q }}"
+                />
 
-    <button type="submit" class="btn btn-sm btn-dark ms-2">
-      Ara
-    </button>
-  </form>
-              <!-- AUTH -->
+                <button type="submit" class="btn btn-sm btn-dark ms-2">
+                  Ara
+                </button>
+              </form>
+
+              <!-- AUTH + SEPET -->
               <div class="d-flex align-items-center gap-3 nav-actions">
                 {% if user.is_authenticated %}
-                <a class="nav-icon-link" href="#">
-                  <i class="bi bi-person"></i>
-                </a>
+                  <a class="nav-icon-link" href="#">
+                    <i class="bi bi-person"></i>
+                  </a>
 
-                <a class="nav-text-link" href="#"> Siparişlerim </a>
+                  <a class="nav-text-link" href="#">
+                    Siparişlerim
+                  </a>
 
-                <a class="nav-text-link" href="{% url 'accounts:logout' %}">
-                  Çıkış
-                </a>
+                  <a class="nav-text-link" href="{% url 'accounts:logout' %}">
+                    Çıkış
+                  </a>
                 {% else %}
-                <a class="nav-icon-link" href="{% url 'accounts:login' %}">
-                  <i class="bi bi-person"></i>
-                </a>
+                  <a class="nav-icon-link" href="{% url 'accounts:login' %}">
+                    <i class="bi bi-person"></i>
+                  </a>
 
-                <a class="nav-text-link" href="{% url 'accounts:login' %}">
-                  Giriş
-                </a>
+                  <a class="nav-text-link" href="{% url 'accounts:login' %}">
+                    Giriş
+                  </a>
 
-                <a class="nav-text-link" href="{% url 'accounts:register' %}">
-                  Kayıt Ol
-                </a>
+                  <a class="nav-text-link" href="{% url 'accounts:register' %}">
+                    Kayıt Ol
+                  </a>
                 {% endif %}
 
                 <!-- SEPET -->
-                <a class="cart-link position-relative" href="#">
+                <span class="cart-link position-relative">
                   <i class="bi bi-bag"></i>
-                  <span class="cart-badge">0</span>
-                </a>
+                  <span>{{ cart_item_count }}</span>
+                </span>
               </div>
             </div>
           </div>
@@ -139,7 +138,9 @@
 
     <!-- İÇERİK -->
     <main class="site-content py-4">
-      <div class="container">{% block content %} {% endblock %}</div>
+      <div class="container">
+        {% block content %}{% endblock %}
+      </div>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

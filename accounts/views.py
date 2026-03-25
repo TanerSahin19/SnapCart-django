@@ -16,7 +16,7 @@ def login_view(request):
 
             if user is not None:
                 login(request, user)
-                return redirect("home")
+                return redirect("products:home")
 
             form.add_error(None, "Kullanıcı adı veya şifre hatalı.")
     else:
@@ -32,7 +32,7 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect("home")
+            return redirect("products:home")
     else:
         form = RegisterForm()
 
@@ -41,4 +41,4 @@ def register_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect("home")
+    return redirect("products:home")

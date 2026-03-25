@@ -1,25 +1,36 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
 
-{% block title %}{{ product.name }}{% endblock %}
+{% block title %}
+
+{{ product.name }}
+
+{% endblock %} 
 
 {% block content %}
 <div class="py-4">
-    <div class="row">
-        <div class="col-md-6">
-            {% if product.image %}
-                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
-            {% else %}
-                <div class="p-4 border text-center">Görsel yok</div>
-            {% endif %}
-        </div>
-
-        <div class="col-md-6">
-            <h1>{{ product.name }}</h1>
-            <p><strong>Kategori:</strong> {{ product.category.name }}</p>
-            <p><strong>Fiyat:</strong> {{ product.price }} TL</p>
-            <p><strong>Stok:</strong> {{ product.stock }}</p>
-            <p><strong>Açıklama:</strong> {{ product.description }}</p>
-        </div>
+  <div class="row">
+    <div class="col-md-6">
+      {% if product.image %}
+      <img
+        src="{{ product.image.url }}"
+        alt="{{ product.name }}"
+        class="img-fluid"
+      />
+      {% else %}
+      <div class="p-4 border text-center">Görsel yok</div>
+      {% endif %}
     </div>
+
+    <div class="col-md-6">
+      <h1>{{ product.name }}</h1>
+      <p><strong>Kategori:</strong> {{ product.category.name }}</p>
+      <p><strong>Fiyat:</strong> {{ product.price }} TL</p>
+      <p><strong>Stok:</strong> {{ product.stock }}</p>
+      <p><strong>Açıklama:</strong> {{ product.description }}</p>
+      <a href="{% url 'cart:add_to_cart' product.id %}" class="btn btn-dark">
+        Sepete Ekle
+      </a>
+    </div>
+  </div>
 </div>
 {% endblock %}
