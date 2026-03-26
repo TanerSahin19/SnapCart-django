@@ -22,27 +22,14 @@ from django.conf.urls.static import static
 from orders import views
 
 urlpatterns = [
-    # Admin panel yolu
     path('admin/', admin.site.urls),
 
-    # Ana sayfa (BOŞ PATH)
-    # "" demek: site açıldığında direkt buraya gelir
-    # Bu path products app içindeki urls.py'ye yönlendirir
-    path('', include('products.urls')),
-
-    # Sepet sistemi
+    path('accounts/', include('accounts.urls')),
     path('cart/', include('cart.urls')),
-
-    # Sipariş sistemi
     path('orders/', include('orders.urls')),
 
-
-    # Kullanıcı sistemi (login/register)
-    path('accounts/', include('accounts.urls')),
-    
+    path('', include('products.urls')),
 ]
 
-# MEDIA dosyaları (resimler) için
-# Development ortamında yüklediğin resimlerin görünmesini sağlar
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
