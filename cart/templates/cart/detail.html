@@ -35,6 +35,12 @@
   </table>
 
   <h4>Toplam: {{ total_price }} TL</h4>
+
+  <div class="text-end mt-4">
+    <a href="{% url 'orders:checkout' %}" class="btn btn-dark">
+        Siparişi Tamamla
+    </a>
+</div>
   {% else %}
   <p>Sepetiniz boş.</p>
   {% endif %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Siparişlerim</h2>
+
+    {% if orders %}
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>Sipariş No</th>
+                    <th>Toplam</th>
+                    <th>Durum</th>
+                    <th>Tarih</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>#{{ order.id }}</td>
+                    <td>{{ order.total_price }} TL</td>
+                    <td>{{ order.get_status_display }}</td>
+                    <td>{{ order.created_at|date:"d M Y H:i" }}</td>
+                    <td>
+                        <a href="{% url 'orders:order_detail' order.id %}" class="btn btn-sm btn-dark">
+                            Detay
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Henüz siparişiniz yok.</p>
+    {% endif %}
+</div>
+{% endblock %}

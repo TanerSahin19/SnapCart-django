@@ -103,7 +103,9 @@
                   <i class="bi bi-person"></i>
                 </a>
 
-                <a class="nav-text-link" href="#"> Siparişlerim </a>
+                <a class="nav-text-link" href="{% url 'orders:my_orders' %}">
+                  Siparişlerim
+                </a>
 
                 <a class="nav-text-link" href="{% url 'accounts:logout' %}">
                   Çıkış

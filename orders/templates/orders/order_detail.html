@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <h2>Sipariş Detayı</h2>
+
+    <p><strong>Sipariş No:</strong> #{{ order.id }}</p>
+    <p><strong>Tarih:</strong> {{ order.created_at|date:"d M Y H:i" }}</p>
+    <p><strong>Durum:</strong> {{ order.get_status_display }}</p>
+    <p><strong>Toplam:</strong> {{ order.total_price }} TL</p>
+
+    <hr>
+
+    <h4>Ürünler</h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ürün</th>
+                <th>Fiyat</th>
+                <th>Adet</th>
+                <th>Ara Toplam</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order.items.all %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.price }} TL</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.subtotal }} TL</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'orders:my_orders' %}" class="btn btn-dark">
+        Siparişlerime Dön
+    </a>
+
+</div>
+{% endblock %}
